@@ -1,5 +1,5 @@
 
-import headerBackground from '../../../assets/palmkernel_background.jpg'
+import headerBackground from '../../../assets/darkpalmkernel_background.jpg'
 import FlatButton from '../../../shared/FlatButton'
 export const Header = ()=>{
     
@@ -13,7 +13,6 @@ export const Header = ()=>{
         content:{
             height:'100%',
             width:'100%',
-            backdropFilter: 'brightness(50%)', 
             color:'white',
             padding:'5% 3%',
            
