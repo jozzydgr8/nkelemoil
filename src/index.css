@@ -1,13 +1,71 @@
-body {
+body *{
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+}
+:root{
+  --bg-primary:#198754
+}
+a{
+
+  text-decoration: none;
+  color: inherit;
+}
+nav .container-fluid{
+  padding: 1% 5%;
+}
+section .container-fluid{
+  padding: 3% 5%;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Style the carousel indicators */
+.carousel-indicators button {
+  width: 20px !important;
+  height: 20px !important;
+  background-color: var(--bg-primary)!important;
+  border-radius: 50%;
+}
+
+/* Active indicator styling */
+.carousel-indicators .active {
+ /* Darker color for active indicator */
+  opacity: 1; /* Full opacity for the active indicator */
+}
+
+/* Optional: Hover effect for the indicators */
+.carousel-indicators button:hover {
+   /* Darker blue on hover */
+  opacity: 1; /* Full opacity on hover */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(100%); /* Change to white */
+}
+
+/* product grid */
+.product {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(300px, 1fr));
+  gap: 10px;/* Prevent padding from breaking layout */
+}
+@media (max-width:750px) {
+  .product{
+    grid-template-columns: repeat(auto-fit,minmax(150px, 1fr));
+  }}
+
+  /* benefit */
+
+.benefitcontainer{
+  color: white;
+  text-align: center;
+}
+.benefitsection{
+  background-color: var(--bg-primary);
+}
+
+
+/* idlayout id layout */
+.background{
+  background-color: var(--bg-primary);
+  color: white;
 }
