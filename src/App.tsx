@@ -3,6 +3,7 @@ import { createBrowserRouter, createRoutesFromElements, Route } from "react-rout
 import HomePage from './Pages/HomePage'
 import Layout from "./Layout";
 import { Idlayout } from "./Pages/IdLayout";
+import { Cart } from "./Pages/Cart";
 
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
     <Route path="/nkelemoil" element={<Layout/>}>
       <Route index element={<HomePage/>}/>
       <Route path=":id" element={<Idlayout/>} />
-      
+      <Route path='cart' element={<Cart/>}/>
     </Route>
   ))
   return (

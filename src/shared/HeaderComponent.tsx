@@ -27,6 +27,9 @@ export const HeaderComponent = () => {
       alignItems: "center",
       gap: "10px",
     },
+    section:{
+      backgroundColor:'#FAFAFA'
+    }
   };
 
   // Function to read and update cart count
@@ -51,17 +54,19 @@ export const HeaderComponent = () => {
   }, []);
 
   return (
-    <section>
+    <section style={styles.section}>
       <div style={styles.container}>
         <div style={styles.content}>
-          <Link to="#">CONTACT US</Link>
+          <Link to="/nkelemoil">HOME</Link>
         </div>
-        <div>
+        <Link to={'/nkelemoil/cart'}>
           <Badge count={cartCount}>
             <ShoppingCartOutlined style={styles.icon} />
           </Badge>
+        </Link>
+
         </div>
-      </div>
+      
     </section>
   );
 };
