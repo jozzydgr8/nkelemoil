@@ -71,7 +71,7 @@ export const Product = ({header}:props) => {
             >
               <div  className="product">
                 {chunk.map((data) => (
-                  <Link to={`/${data.id}`} style={styles.content} key={data.id} >
+                  <Link to={`/nkelemoil${data.id}`} style={styles.content} key={data.id} >
                     <div style={styles.productbackground}>
 
                     </div>

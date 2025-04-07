@@ -7,7 +7,7 @@ import { Idlayout } from "./Pages/IdLayout";
 
 function App() {
   const router = createBrowserRouter(createRoutesFromElements(
-    <Route path="/" element={<Layout/>}>
+    <Route path="/nkelemoil" element={<Layout/>}>
       <Route index element={<HomePage/>}/>
       <Route path=":id" element={<Idlayout/>} />
       
