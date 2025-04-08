@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { palmOilProducts } from "../data";
 import FlatButton from "../shared/FlatButton";
 import { DeleteOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 export function Cart() {
   const [cartItems, setCartItems] = useState<{ id: string; quantity: number }[]>([]);
+  const navigate = useNavigate();
 
   // Load items from localStorage when component mounts
   useEffect(() => {
@@ -79,7 +81,7 @@ export function Cart() {
           <div>
             <FlatButton
               title="Proceed to Checkout"
-              onClick={() => console.log("proceed")}
+              onClick={() => navigate('nkelemoil/checkout')}
             />
           </div>
         )}

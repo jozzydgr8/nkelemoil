@@ -5,6 +5,8 @@ import Layout from "./Layout";
 import { Idlayout } from "./Pages/IdLayout";
 import { Cart } from "./Pages/Cart";
 
+import { CheckoutSteps } from "./Pages/Component/CheckoutSteps";
+
 
 function App() {
   const router = createBrowserRouter(createRoutesFromElements(
@@ -12,6 +14,7 @@ function App() {
       <Route index element={<HomePage/>}/>
       <Route path=":id" element={<Idlayout/>} />
       <Route path='cart' element={<Cart/>}/>
+      <Route path="checkout" element={<CheckoutSteps/>}/>
     </Route>
   ))
   return (

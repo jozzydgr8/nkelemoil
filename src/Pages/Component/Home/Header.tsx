@@ -37,9 +37,9 @@ export const Header = ()=>{
                     Get Quality Palm Oil Online in Nigeria – Fresh, Pure & Affordable
                     </h1>
                     <p>
-                    Looking for where to get palm oil you can trust? 
-                    Buy bulk palm oil directly from our farm and enjoy the best palm oil delivered to your doorstep — 
-                    rich in taste, perfect for home and commercial use.
+                    Get Quality Palm Oil Delivered Worldwide – Fresh, Pure & Affordable
+                    Looking for where to get palm oil you can trust? Whether you need a single bottle or bulk supply, 
+                    we deliver fresh and premium palm oil straight from the farm to your doorstep — rich in taste and perfect for home or commercial use, anywhere in the world.
                     </p>
                     <div style={styles.buttoncontainer}>
                     <FlatButton title='view Products' onClick={()=>console.log('products')}/>
