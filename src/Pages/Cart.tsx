@@ -1,13 +1,27 @@
+import { UseContextData } from "../Context/UseContextData";
+import { palmOilProducts } from "../data";
 import FlatButton from "../shared/FlatButton";
 import { DeleteOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
-import { UseContextData } from "../Context/UseContextData";
-
 
 export function Cart() {
-  const navigate = useNavigate();
-  const { cart,  loading } = UseContextData();
+  const {cart} = UseContextData();
+  // Get the items directly from localStorage
+  const cartItems = JSON.parse(localStorage.getItem("myItems") || "[]");
 
+  // Merge quantity with palmOilProducts
+  const data = palmOilProducts
+    .filter((product) =>
+      cartItems.some((i: { id: string }) => String(product.id) === i.id)
+    )
+    .map((product) => {
+      const matchedItem = cartItems.find(
+        (i: { id: string }) => String(product.id) === i.id
+      );
+      return {
+        ...product,
+        quantity: matchedItem?.quantity || 1,
+      };
+    });
 
   const styles = {
     container: {
@@ -27,26 +41,19 @@ export function Cart() {
     },
   };
 
+  // Remove item from localStorage and reload the page
   const removeItem = (id: string) => {
-    if (!cart) return;
-  
-    const updatedItems = cart.filter((item) => item.id.toString() !== id);
-  
+    const updatedItems = cartItems.filter((item: { id: string }) => item.id !== id);
     localStorage.setItem("myItems", JSON.stringify(updatedItems));
-  
-    // Optional: trigger a custom event if other components need to react
-    window.dispatchEvent(new Event("cartUpdated"));
+    window.dispatchEvent(new Event("cartUpdated")); 
   };
-  if(loading){
-    return <>...loading</>
-  }
 
   return (
     <section>
       <div className="container-fluid">
         <h1>Cart</h1>
-        { cart && cart?.length > 0 ? (
-          cart?.map((item) => (
+        { cart && cart.length > 0 ? (
+          cart.map((item) => (
             <div style={styles.container} key={item.id}>
               <div style={styles.content}>
                 <div>
@@ -65,12 +72,11 @@ export function Cart() {
         ) : (
           <p>Your cart is empty.</p>
         )}
-
-        {cart && cart?.length > 0 && (
+        { cart && cart.length > 0 && (
           <div>
             <FlatButton
               title="Proceed to Checkout"
-              onClick={() => navigate('/nkelemoil/cart/checkout')}
+              onClick={() => console.log("proceed")}
             />
           </div>
         )}
