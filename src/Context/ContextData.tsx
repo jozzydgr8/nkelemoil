@@ -1,9 +1,8 @@
 import React, { createContext, useReducer } from "react";
+import { CartItem } from "../shared/Types";
 
 // Types
-type CartItem = {
-    quantity: any; id: number; title: string; image: string;
-};
+
 
 type State = {
   cart: CartItem[] | null;

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { UseContextData } from "../Context/UseContextData";
 import { palmOilProducts } from "../data";
 import FlatButton from "../shared/FlatButton";
@@ -5,6 +6,7 @@ import { DeleteOutlined } from "@ant-design/icons";
 
 export function Cart() {
   const {cart} = UseContextData();
+  const navigate = useNavigate();
   // Get the items directly from localStorage
   const cartItems = JSON.parse(localStorage.getItem("myItems") || "[]");
 
@@ -76,7 +78,7 @@ export function Cart() {
           <div>
             <FlatButton
               title="Proceed to Checkout"
-              onClick={() => console.log("proceed")}
+              onClick={() => navigate('/nkelemoil/cart/checkout')}
             />
           </div>
         )}

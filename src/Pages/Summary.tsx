@@ -1,9 +1,11 @@
 import { UseContextData } from "../Context/UseContextData"
 import FlatButton from "../shared/FlatButton"
+import { FlatCart } from "../shared/FlatCart"
 import { checkoutvalues } from "../shared/Types"
-import {CloseOutlined} from '@ant-design/icons'
+
 type summaryprops ={
-    data:checkoutvalues
+    data:checkoutvalues,
+    handleSummary:(values:boolean)=>void
 }
 
 const styles = {
@@ -19,7 +21,7 @@ const styles = {
         borderRadius:'20px'
     }
 }
-export const Summary = ({data }:summaryprops)=>{
+export const Summary = ({data, handleSummary }:summaryprops)=>{
     const {cart} = UseContextData();
     return(
         <div>
@@ -41,15 +43,14 @@ export const Summary = ({data }:summaryprops)=>{
                     {
                         cart?.map(item=>(
                             <div key={item.id} style={styles.content}>
-                                <p>{item.title}</p>
-                                <p style={{fontWeight:"bold", fontSize:"18px", display:"flex"}}> <CloseOutlined/> {item.quantity}</p>
+                                <FlatCart item={item}/>
                             </div>
                         ))
                     }
                 </div>
 
                 <div>
-                    <FlatButton title="Proceed to payment" onClick={()=>console.log('proceed')}/>
+                    <FlatButton title="Proceed to payment" onClick={()=>handleSummary(true)}/>
                 </div>
             </div>
 

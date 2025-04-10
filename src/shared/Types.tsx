@@ -8,3 +8,7 @@ export type checkoutvalues={
     state: string; 
     deliveryNote: string;
 }
+
+export type CartItem = {
+    quantity: any; id: number; title: string; image: string;
+};
