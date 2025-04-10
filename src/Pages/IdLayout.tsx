@@ -6,7 +6,7 @@ import { Product } from "./Component/Home/Product";
 import { useState } from "react";
 export function Idlayout (){
     const {id} = useParams();
-    const [number, setNumber] =useState(1)
+    const [number, setNumber] =useState(1);
     const data = palmOilProducts.find(data => data.id.toString() == id);
     const styles ={
         backgroundimage:{

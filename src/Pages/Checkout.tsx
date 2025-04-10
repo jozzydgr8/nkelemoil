@@ -105,6 +105,7 @@ export default function Checkout({ handleCheckOut }: checkprops) {
 
               <h3>Delivery</h3>
               <div style={styles.inputContainer}>
+                Country
                 <Select
                   showSearch
                   style={{ width: "100%" }}

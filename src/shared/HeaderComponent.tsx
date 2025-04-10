@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { Badge } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { UseContextData } from "../Context/UseContextData";
 
 export const HeaderComponent = () => {
   const [cartCount, setCartCount] = useState(0);
+  const {dispatch} = UseContextData();
 
   const styles = {
     icon: {
@@ -36,6 +38,7 @@ export const HeaderComponent = () => {
   const updateCartCount = () => {
     const items = JSON.parse(localStorage.getItem("myItems") || "[]");
     setCartCount(items.length);
+    dispatch({type:"getcart", payload:items})
   };
 
   useEffect(() => {
