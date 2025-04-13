@@ -10,6 +10,7 @@ import 'react-phone-input-2/lib/style.css';
 
 type checkprops = {
   handleCheckOut: (values: checkoutvalues) => void;
+  checkoutdetails: checkoutvalues
 };
 
 const styles = {
@@ -33,14 +34,14 @@ const checkoutSchema = Yup.object().shape({
   deliveryNote: Yup.string(), // Optional
 });
 
-export default function Checkout({ handleCheckOut }: checkprops) {
+export default function Checkout({ handleCheckOut, checkoutdetails }: checkprops) {
   const countries = getNames();
 
   return (
     <section >
       <div >
         <Formik
-          initialValues={{
+          initialValues={ checkoutdetails || {
             name: "",
             email: "",
             phone: "",
@@ -51,8 +52,9 @@ export default function Checkout({ handleCheckOut }: checkprops) {
             deliveryNote: "",
           }}
           validationSchema={checkoutSchema}
-          onSubmit={(values) => {
+          onSubmit={(values, {setSubmitting}) => {
             handleCheckOut(values);
+            setSubmitting(false);
           }}
         >
           {(props) => (
@@ -110,14 +112,14 @@ export default function Checkout({ handleCheckOut }: checkprops) {
                 <Select
                   showSearch
                   style={{ 
-                    width:'100%',
+                    width:'80%',
                     // display:'block',
-                    maxWidth: "300px",
-                    margin: "0 auto",
-                  
+                    maxWidth: "300px",                  
                   }}
                   placeholder="Select your country"
                   optionFilterProp="children"
+                  getPopupContainer={trigger => trigger.parentElement}
+                  dropdownMatchSelectWidth={false}
                   value={props.values.country}
                   onChange={(value) =>
                     props.setFieldValue("country", value)

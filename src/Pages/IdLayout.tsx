@@ -4,6 +4,7 @@ import demoImage from '../assets/fiveliter_palmoil.jpeg'
 import FlatButton from "../shared/FlatButton";
 import { Product } from "./Component/Home/Product";
 import { useState } from "react";
+import { toast } from "react-toastify";
 export function Idlayout (){
     const {id} = useParams();
     const [number, setNumber] =useState(1);
@@ -51,6 +52,7 @@ export function Idlayout (){
           existing.push({ id:id, quantity:number });
           localStorage.setItem("myItems", JSON.stringify(existing));
           window.dispatchEvent(new Event("cartUpdated"));
+          toast.info(`${data?.title} has been added to your cart.`);
 
         }
       };
@@ -96,7 +98,7 @@ export function Idlayout (){
                            
                             </div>
 
-                            <h3 style={styles.title}>#15,000</h3>
+                            <h3 style={styles.title}>#{data?.price}</h3>
 
                             <div style={styles.buttoncontainer}>
                             <FlatButton title="ADD TO CART" onClick={addToStorage}/>

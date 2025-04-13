@@ -71,6 +71,8 @@ export const Payment = ({data}:props)=>{
                     <p style={styles.content}><strong>Address:</strong> {data.address}</p>
                     <p style={styles.content}><strong>State:</strong>{data.state}</p>
                     <p style={styles.content}><strong>City:</strong> {data.city}</p>
+
+                    <h3>Items:</h3>
                     {
                     cart &&cart.map(item=>(
                         <div key={item.id} style={styles.content}>

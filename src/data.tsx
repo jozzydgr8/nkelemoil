@@ -1,42 +1,49 @@
 const palmOilImage = ''
 export const palmOilProducts = [
-    {
-      id: 1,
-      quantity: "1L",
-      title: "1 Litre Palm Oil – Fresh & Quality",
-      image: palmOilImage,
-    },
-    {
-      id: 2,
-      quantity: "2L",
-      title: "2 Litres Palm Oil – Fresh & Quality",
-      image: palmOilImage,
-    },
-    {
-      id: 3,
-      quantity: "5L",
-      title: "5 Litres Palm Oil – Fresh & Quality",
-      image: palmOilImage,
-    },
-    {
-      id: 4,
-      quantity: "10L",
-      title: "10 Litres Palm Oil – Fresh & Quality",
-      image: palmOilImage,
-    },
-    {
-      id: 5,
-      quantity: "20L",
-      title: "20 Litres Palm Oil – Buy in Bulk",
-      image: palmOilImage,
-    },
-    {
-      id: 6,
-      quantity: "25L",
-      title: "25 Litres Palm Oil – Bulk Purchase",
-      image: palmOilImage,
-    }
-  ];
+  {
+    id: 1,
+    quantity: "1L",
+    title: "1 Litre Palm Oil – Fresh & Quality",
+    price: 1500,
+    image: palmOilImage,
+  },
+  {
+    id: 2,
+    quantity: "2L",
+    title: "2 Litres Palm Oil – Fresh & Quality",
+    price: 2800,
+    image: palmOilImage,
+  },
+  {
+    id: 3,
+    quantity: "5L",
+    title: "5 Litres Palm Oil – Fresh & Quality",
+    price: 6500,
+    image: palmOilImage,
+  },
+  {
+    id: 4,
+    quantity: "10L",
+    title: "10 Litres Palm Oil – Fresh & Quality",
+    price: 12000,
+    image: palmOilImage,
+  },
+  {
+    id: 5,
+    quantity: "20L",
+    title: "20 Litres Palm Oil – Buy in Bulk",
+    price: 23000,
+    image: palmOilImage,
+  },
+  {
+    id: 6,
+    quantity: "25L",
+    title: "25 Litres Palm Oil – Bulk Purchase",
+    price: 28000,
+    image: palmOilImage,
+  }
+];
+
   
 
 

@@ -35,7 +35,7 @@ export const CheckoutSteps = ()=>{
       };
 
     const Forms =[
-        <Checkout handleCheckOut={handleCheckOut}/>,
+        <Checkout handleCheckOut={handleCheckOut} checkoutdetails={checkoutdetails}/>,
         <Summary data={checkoutdetails} handleSummary={handleSummary}/>,
         <Payment data={checkoutdetails}/>
 

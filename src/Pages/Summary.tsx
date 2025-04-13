@@ -40,6 +40,7 @@ export const Summary = ({data, handleSummary }:summaryprops)=>{
 
                 </div>
                 <div>
+                    <h3>Items: </h3>
                     {
                         cart?.map(item=>(
                             <div key={item.id} style={styles.content}>
@@ -48,7 +49,7 @@ export const Summary = ({data, handleSummary }:summaryprops)=>{
                         ))
                     }
                 </div>
-
+                    <small>Ensure all description matches before proceeding</small>
                 <div>
                     <FlatButton title="Proceed to payment" onClick={()=>handleSummary(true)}/>
                 </div>

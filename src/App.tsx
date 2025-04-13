@@ -9,6 +9,11 @@ import { CheckoutSteps } from "./Pages/Component/CheckoutSteps";
 import { useEffect } from "react";
 import { palmOilProducts } from "./data";
 import { UseContextData } from "./Context/UseContextData";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
 
 
 function App() {
@@ -62,6 +67,17 @@ if(loading){
   return (
     <div className="App">
       <RouterProvider router={router}/>
+      <ToastContainer 
+      position="top-right"
+      autoClose={3000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light" // or "dark"
+    />
     </div>
   );
 }

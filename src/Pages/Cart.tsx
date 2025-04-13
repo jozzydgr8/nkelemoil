@@ -3,21 +3,23 @@ import { UseContextData } from "../Context/UseContextData";
 import { palmOilProducts } from "../data";
 import FlatButton from "../shared/FlatButton";
 import { DeleteOutlined } from "@ant-design/icons";
+import { toast } from "react-toastify";
 
 export function Cart() {
-  const {cart} = UseContextData();
+  const { cart } = UseContextData();
   const navigate = useNavigate();
+
   // Get the items directly from localStorage
   const cartItems = JSON.parse(localStorage.getItem("myItems") || "[]");
 
-  // Merge quantity with palmOilProducts
+  // Merge quantity from localStorage into palmOilProducts
   const data = palmOilProducts
     .filter((product) =>
-      cartItems.some((i: { id: string }) => String(product.id) === i.id)
+      cartItems.some((item: { id: string }) => String(product.id) === item.id)
     )
     .map((product) => {
       const matchedItem = cartItems.find(
-        (i: { id: string }) => String(product.id) === i.id
+        (item: { id: string }) => String(product.id) === item.id
       );
       return {
         ...product,
@@ -43,44 +45,70 @@ export function Cart() {
     },
   };
 
-  // Remove item from localStorage and reload the page
+  // Remove an item from localStorage and dispatch cartUpdated event
   const removeItem = (id: string) => {
+    const itemRemoved = cart?.find((item) => String(item.id) === id);
+  
     const updatedItems = cartItems.filter((item: { id: string }) => item.id !== id);
     localStorage.setItem("myItems", JSON.stringify(updatedItems));
-    window.dispatchEvent(new Event("cartUpdated")); 
+    window.dispatchEvent(new Event("cartUpdated"));
+  
+    toast.info(`${itemRemoved?.title} has been removed from your cart.`);
   };
+  
+
+  // Calculate total price
+  const totalPrice = cart?.reduce((acc, item) => {
+    return acc + item.price * parseInt(item.quantity);
+  }, 0);
 
   return (
     <section>
       <div className="container-fluid">
         <h1>Cart</h1>
-        { cart && cart.length > 0 ? (
-          cart.map((item) => (
-            <div style={styles.container} key={item.id}>
-              <div style={styles.content}>
-                <div>
-                  <p>
-                    <strong>{item.title}</strong>
-                  </p>
-                  <p>Quantity: {item.quantity}</p>
+
+        {cart && cart.length > 0 ? (
+          <div>
+            {cart.map((item) => (
+              <div style={styles.container} key={item.id}>
+                <div style={styles.content}>
+                  <div>
+                    <p><strong>{item.title}</strong></p>
+                    <p>Quantity: {item.quantity}</p>
+                    <p>
+                      <strong>
+                        ₦{(item.price * parseInt(item.quantity)).toLocaleString()}
+                      </strong>{" "}
+                      <small style={{ fontWeight: "normal" }}>
+                        (₦{item.price.toLocaleString()} x {item.quantity})
+                      </small>
+                    </p>
+                  </div>
+
+                  <DeleteOutlined
+                    style={styles.icon}
+                    onClick={() => removeItem(String(item.id))}
+
+                  />
                 </div>
-                <DeleteOutlined
-                  style={styles.icon}
-                  onClick={() => removeItem(JSON.stringify(item.id))}
-                />
               </div>
+            ))}
+
+            {/* Total section */}
+            <div>
+              <strong>Total: ₦{totalPrice?.toLocaleString()}</strong>
             </div>
-          ))
+
+            {/* Checkout Button */}
+            <div>
+              <FlatButton
+                title="Proceed to Checkout"
+                onClick={() => navigate("/nkelemoil/cart/checkout")}
+              />
+            </div>
+          </div>
         ) : (
           <p>Your cart is empty.</p>
-        )}
-        { cart && cart.length > 0 && (
-          <div>
-            <FlatButton
-              title="Proceed to Checkout"
-              onClick={() => navigate('/nkelemoil/cart/checkout')}
-            />
-          </div>
         )}
       </div>
     </section>

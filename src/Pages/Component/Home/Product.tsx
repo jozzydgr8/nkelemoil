@@ -78,6 +78,7 @@ export const Product = ({header}:props) => {
                     <div>
                       <p style={styles.title}>{data.title}</p>
                       <p style={styles.text}>{data.quantity}</p>
+                      <p style={styles.title}>#{data.price}</p>
                       <FlatButton title="Buy Now" onClick={()=>console.log('buy')}/>
                     </div>
                   </Link>

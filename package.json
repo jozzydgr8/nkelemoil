@@ -51,6 +51,7 @@
     ]
   },
   "devDependencies": {
-    "@types/country-list": "^2.1.4"
+    "@types/country-list": "^2.1.4",
+    "react-toastify": "^11.0.5"
   }
 }
