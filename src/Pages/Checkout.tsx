@@ -106,9 +106,10 @@ export default function Checkout({ handleCheckOut }: checkprops) {
               <h3>Delivery</h3>
               <div style={styles.inputContainer}>
                 Country
+                <br/>
                 <Select
                   showSearch
-                  style={{ width: "100%" }}
+                  style={{ width: "300px" }}
                   placeholder="Select your country"
                   optionFilterProp="children"
                   value={props.values.country}
