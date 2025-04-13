@@ -74,6 +74,7 @@ section .container-fluid{
   max-width: 800px;
   margin: 0 auto;
   padding: 16px;
+  overflow-y: auto;
 }
 @media (max-width:750px) {
   .checkwidth{
