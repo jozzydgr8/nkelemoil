@@ -42,7 +42,7 @@ export const CheckoutSteps = ()=>{
     ]
 
     return(
-        <section>
+        <section >
             <div className="container-fluid">
                 <Steps onChange={handleStepChange} current={current}>
                     <Step title='checkout' disabled={isStepDisabled(0)}/>

@@ -41,7 +41,7 @@ export const Payment = ({data}:props)=>{
           
     }
     return (
-        <div>
+        <div style={{ maxWidth: '600px', margin: '0 auto', padding: '16px' }}>
             <div style={{...styles.card , flexDirection:'column'}}>
                 <div style={{...styles.logoContainer}}>
                     <h3>Pay stack</h3>
