@@ -112,7 +112,7 @@ export default function Checkout({ handleCheckOut }: checkprops) {
                   style={{ 
                     width:'100%',
                     // display:'block',
-                    maxWidth: "600px",
+                    maxWidth: "300px",
                     margin: "0 auto",
                   
                   }}
