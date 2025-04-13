@@ -38,7 +38,7 @@ export default function Checkout({ handleCheckOut }: checkprops) {
 
   return (
     <section>
-      <div>
+      <div style={{ maxWidth: '600px', margin: '0 auto', padding: '16px' }}>
         <Formik
           initialValues={{
             name: "",
