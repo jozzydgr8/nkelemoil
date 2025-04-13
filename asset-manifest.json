@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/nkelemoil/static/css/main.e39bb7e8.css",
-    "main.js": "/nkelemoil/static/js/main.f631db2b.js",
+    "main.css": "/nkelemoil/static/css/main.01338c44.css",
+    "main.js": "/nkelemoil/static/js/main.dd0adce7.js",
     "static/js/453.cd0606b2.chunk.js": "/nkelemoil/static/js/453.cd0606b2.chunk.js",
     "static/media/darkpalmkernel_background.jpg": "/nkelemoil/static/media/darkpalmkernel_background.43d7dc8d0b7f26c03c8a.jpg",
     "static/media/palmkernel_background.jpg": "/nkelemoil/static/media/palmkernel_background.9d65df8470263fc2886f.jpg",
     "static/media/fiveliter_palmoil.jpeg": "/nkelemoil/static/media/fiveliter_palmoil.0417f9885405a430c261.jpeg",
     "index.html": "/nkelemoil/index.html",
-    "main.e39bb7e8.css.map": "/nkelemoil/static/css/main.e39bb7e8.css.map",
-    "main.f631db2b.js.map": "/nkelemoil/static/js/main.f631db2b.js.map",
+    "main.01338c44.css.map": "/nkelemoil/static/css/main.01338c44.css.map",
+    "main.dd0adce7.js.map": "/nkelemoil/static/js/main.dd0adce7.js.map",
     "453.cd0606b2.chunk.js.map": "/nkelemoil/static/js/453.cd0606b2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e39bb7e8.css",
-    "static/js/main.f631db2b.js"
+    "static/css/main.01338c44.css",
+    "static/js/main.dd0adce7.js"
   ]
 }
