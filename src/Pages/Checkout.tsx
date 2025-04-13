@@ -109,7 +109,13 @@ export default function Checkout({ handleCheckOut }: checkprops) {
                 <br/>
                 <Select
                   showSearch
-                  style={{ width: "300px" }}
+                  style={{ 
+                    width:'100%',
+                    // display:'block',
+                    maxWidth: "600px",
+                    margin: "0 auto",
+                  
+                  }}
                   placeholder="Select your country"
                   optionFilterProp="children"
                   value={props.values.country}
