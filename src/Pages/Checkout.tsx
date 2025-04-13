@@ -37,7 +37,7 @@ export default function Checkout({ handleCheckOut }: checkprops) {
   const countries = getNames();
 
   return (
-    <section style={{ maxWidth: '600px', margin: '0 auto', padding: '16px' }}>
+    <section >
       <div >
         <Formik
           initialValues={{

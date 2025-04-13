@@ -69,9 +69,14 @@ section .container-fluid{
   background-color: var(--bg-primary);
   color: white;
 }
-
+/* checkout checkoutsection */
+.checkwidth{
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+}
 @media (max-width:750px) {
-  .checkWidth{
-    max-width: 550px;
+  .checkwidth{
+    max-width: 400px;
   }
 }

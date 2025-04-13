@@ -51,9 +51,12 @@ export const CheckoutSteps = ()=>{
 
                     
                 </Steps>
+                <div className="checkwidth">
                 {
                     Forms[current]
                 }
+                </div>
+                
             </div>
         </section>
     )

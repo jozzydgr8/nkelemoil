@@ -24,7 +24,7 @@ const styles = {
 export const Summary = ({data, handleSummary }:summaryprops)=>{
     const {cart} = UseContextData();
     return(
-        <div style={{ maxWidth: '600px', margin: '0 auto', padding: '16px' }}>
+        <div>
             <h1>Summary</h1>
             
             <div style={styles.container}>
