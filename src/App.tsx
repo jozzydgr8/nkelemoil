@@ -11,9 +11,23 @@ import { palmOilProducts } from "./data";
 import { UseContextData } from "./Context/UseContextData";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { initializeApp } from "firebase/app";
 
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDkadbzWyKrB81D8SEbFpxWP3r3bRbJsAA",
+  authDomain: "nkelemoil.firebaseapp.com",
+  projectId: "nkelemoil",
+  storageBucket: "nkelemoil.firebasestorage.app",
+  messagingSenderId: "284682857488",
+  appId: "1:284682857488:web:3126cd858f234493fcee95"
+};
 
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 
 function App() {

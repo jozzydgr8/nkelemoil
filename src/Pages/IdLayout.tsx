@@ -42,21 +42,28 @@ export function Idlayout (){
         iconcontainer:{marginRight:'16px', cursor:'pointer'}
     }
 
-    const addToStorage = () => {
-        const existing = JSON.parse(localStorage.getItem('myItems') || '[]');
-      
-        // Check if the item already exists by id
-        const alreadyExists = existing.some((item: { id: string }) => item.id === id);
-      
-        if (!alreadyExists) {
-          existing.push({ id:id, quantity:number });
-          localStorage.setItem("myItems", JSON.stringify(existing));
-          window.dispatchEvent(new Event("cartUpdated"));
-          toast.info(`${data?.title} has been added to your cart.`);
 
-        }
-      };
-      
+
+const addToStorage = () => {
+  const existing = JSON.parse(localStorage.getItem('myItems') || '[]');
+
+  // Check if the item already exists
+  const itemIndex = existing.findIndex((item: { id: string }) => item.id === id);
+
+  if (itemIndex !== -1) {
+    // If it exists, update the quantity
+    existing[itemIndex].quantity += number;
+    toast.info(`Increased quantity of ${data?.title} in your cart.`);
+  } else {
+    // If it doesn't exist, add it
+    existing.push({ id: id, quantity: number });
+    toast.info(`${data?.title} has been added to your cart.`);
+  }
+
+  localStorage.setItem('myItems', JSON.stringify(existing));
+  window.dispatchEvent(new Event('cartUpdated'));
+};
+
       
     return(
         <section>

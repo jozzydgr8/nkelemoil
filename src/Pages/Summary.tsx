@@ -21,8 +21,14 @@ const styles = {
         borderRadius:'20px'
     }
 }
+
 export const Summary = ({data, handleSummary }:summaryprops)=>{
     const {cart} = UseContextData();
+
+    // total total
+    const totalPrice = cart?.reduce((acc, item) => {
+        return acc + item.price * parseInt(item.quantity);
+    }, 0);
     return(
         <div>
             <h1>Summary</h1>
@@ -48,6 +54,9 @@ export const Summary = ({data, handleSummary }:summaryprops)=>{
                             </div>
                         ))
                     }
+                </div>
+                <div>
+                    <strong>Total: ₦{totalPrice?.toLocaleString()} </strong>
                 </div>
                     <small>Ensure all description matches before proceeding</small>
                 <div>
