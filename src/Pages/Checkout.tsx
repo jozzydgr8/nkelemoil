@@ -1,4 +1,3 @@
-import { Input, Select } from "antd";
 import { Formik } from "formik";
 import * as Yup from "yup"; // 👈 Import Yup
 import FlatButton from "../shared/FlatButton";
@@ -6,8 +5,7 @@ import { checkoutvalues } from "../shared/Types";
 import { getNames } from "country-list";
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
-
-
+import { Form, Input, Select } from "antd";
 type checkprops = {
   handleCheckOut: (values: checkoutvalues) => void;
   checkoutdetails: checkoutvalues
@@ -58,9 +56,16 @@ export default function Checkout({ handleCheckOut, checkoutdetails }: checkprops
           }}
         >
           {(props) => (
-            <div>
+            
+            
+            <Form layout="vertical" onFinish={props.handleSubmit}>
               <h3>Information</h3>
-              <div style={styles.inputContainer}>
+            
+              <Form.Item
+                label="Full Name"
+                validateStatus={props.touched.name && props.errors.name ? "error" : ""}
+                help={props.touched.name && props.errors.name ? props.errors.name : " "}
+              >
                 <Input
                   name="name"
                   placeholder="Full name e.g: John Doe"
@@ -68,12 +73,13 @@ export default function Checkout({ handleCheckOut, checkoutdetails }: checkprops
                   onChange={props.handleChange}
                   onBlur={props.handleBlur}
                 />
-                {props.touched.name && props.errors.name && (
-                  <div style={{ color: "red" }}>{props.errors.name}</div>
-                )}
-              </div>
-
-              <div style={styles.inputContainer}>
+              </Form.Item>
+            
+              <Form.Item
+                label="Email"
+                validateStatus={props.touched.email && props.errors.email ? "error" : ""}
+                help={props.touched.email && props.errors.email ? props.errors.email : " "}
+              >
                 <Input
                   name="email"
                   placeholder="Email e.g: myname@email.com"
@@ -81,49 +87,46 @@ export default function Checkout({ handleCheckOut, checkoutdetails }: checkprops
                   onChange={props.handleChange}
                   onBlur={props.handleBlur}
                 />
-                {props.touched.email && props.errors.email && (
-                  <div style={{ color: "red" }}>{props.errors.email}</div>
-                )}
-              </div>
-
-              <div style={styles.inputContainer}>
-              <PhoneInput
-                country={'ng'} // Default to Nigeria, or 'us' etc.
-                onlyCountries={['ng', 'gh', 'us', 'gb']} // Optional: limit available countries
-                value={props.values.phone}
-                onChange={(value) => props.setFieldValue('phone', value)}
-                onBlur={() => props.setFieldTouched('phone', true)}
-                inputStyle={{ width: '100%' }}
-                inputProps={{
-                name: 'phone',
-                required: true,
-                autoFocus: false,
-                }}
-            />
-            {props.touched.phone && props.errors.phone && (
-                <div style={{ color: 'red' }}>{props.errors.phone}</div>
-            )}
-              </div>
-
+              </Form.Item>
+            
+              <Form.Item
+                label="Phone"
+                validateStatus={props.touched.phone && props.errors.phone ? "error" : ""}
+                help={props.touched.phone && props.errors.phone ? props.errors.phone : " "}
+              >
+                <PhoneInput
+                  country={"ng"}
+                  onlyCountries={["ng", "gh", "us", "gb"]}
+                  value={props.values.phone}
+                  onChange={(value) => props.setFieldValue("phone", value)}
+                  onBlur={() => props.setFieldTouched("phone", true)}
+                  inputStyle={{ width: "100%" }}
+                  inputProps={{
+                    name: "phone",
+                    required: true,
+                    autoFocus: false,
+                  }}
+                />
+              </Form.Item>
+            
               <h3>Delivery</h3>
-              <div style={styles.inputContainer}>
-                Country
-                <br/>
+            
+              <Form.Item
+                label="Country"
+                validateStatus={
+                  props.touched.country && props.errors.country ? "error" : ""
+                }
+                help={props.touched.country && props.errors.country ? props.errors.country : " "}
+              >
                 <Select
                   showSearch
-                  style={{ 
-                    width:'80%',
-                    // display:'block',
-                    maxWidth: "300px",                  
-                  }}
+                  style={{ width: "100%", maxWidth: "300px" }}
                   placeholder="Select your country"
                   optionFilterProp="children"
-                  getPopupContainer={trigger => trigger.parentElement}
+                  getPopupContainer={(trigger) => trigger.parentElement}
                   dropdownMatchSelectWidth={false}
                   value={props.values.country}
-                  onChange={(value) =>
-                    props.setFieldValue("country", value)
-                  }
+                  onChange={(value) => props.setFieldValue("country", value)}
                   onBlur={() => props.setFieldTouched("country", true)}
                   filterOption={(input, option) =>
                     (option?.children as unknown as string)
@@ -137,12 +140,13 @@ export default function Checkout({ handleCheckOut, checkoutdetails }: checkprops
                     </Select.Option>
                   ))}
                 </Select>
-                {props.touched.country && props.errors.country && (
-                  <div style={{ color: "red" }}>{props.errors.country}</div>
-                )}
-              </div>
-
-              <div style={styles.inputContainer}>
+              </Form.Item>
+            
+              <Form.Item
+                label="Street / Address"
+                validateStatus={props.touched.address && props.errors.address ? "error" : ""}
+                help={props.touched.address && props.errors.address ? props.errors.address : " "}
+              >
                 <Input
                   name="address"
                   placeholder="Street/Address"
@@ -150,12 +154,13 @@ export default function Checkout({ handleCheckOut, checkoutdetails }: checkprops
                   onChange={props.handleChange}
                   onBlur={props.handleBlur}
                 />
-                {props.touched.address && props.errors.address && (
-                  <div style={{ color: "red" }}>{props.errors.address}</div>
-                )}
-              </div>
-
-              <div style={styles.inputContainer}>
+              </Form.Item>
+            
+              <Form.Item
+                label="City / Town"
+                validateStatus={props.touched.city && props.errors.city ? "error" : ""}
+                help={props.touched.city && props.errors.city ? props.errors.city : " "}
+              >
                 <Input
                   name="city"
                   placeholder="City / Town"
@@ -163,12 +168,13 @@ export default function Checkout({ handleCheckOut, checkoutdetails }: checkprops
                   onChange={props.handleChange}
                   onBlur={props.handleBlur}
                 />
-                {props.touched.city && props.errors.city && (
-                  <div style={{ color: "red" }}>{props.errors.city}</div>
-                )}
-              </div>
-
-              <div style={styles.inputContainer}>
+              </Form.Item>
+            
+              <Form.Item
+                label="State"
+                validateStatus={props.touched.state && props.errors.state ? "error" : ""}
+                help={props.touched.state && props.errors.state ? props.errors.state : " "}
+              >
                 <Input
                   name="state"
                   placeholder="State"
@@ -176,24 +182,22 @@ export default function Checkout({ handleCheckOut, checkoutdetails }: checkprops
                   onChange={props.handleChange}
                   onBlur={props.handleBlur}
                 />
-                {props.touched.state && props.errors.state && (
-                  <div style={{ color: "red" }}>{props.errors.state}</div>
-                )}
-              </div>
-
-              <div style={styles.inputContainer}>
+              </Form.Item>
+            
+              <Form.Item label="Delivery Note (Optional)">
                 <Input.TextArea
                   name="deliveryNote"
                   placeholder="Delivery description (optional)"
                   value={props.values.deliveryNote}
                   onChange={props.handleChange}
                 />
-              </div>
-
-              <div>
-                <FlatButton title="Submit" onClick={props.handleSubmit} />
-              </div>
-            </div>
+              </Form.Item>
+            
+              <Form.Item>
+                <FlatButton title="Submit" onClick={() => props.handleSubmit()} />
+              </Form.Item>
+            </Form>
+            
           )}
         </Formik>
       </div>
