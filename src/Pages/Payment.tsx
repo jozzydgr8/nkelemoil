@@ -1,5 +1,4 @@
 import { UseContextData } from "../Context/UseContextData"
-import FlatButton from "../shared/FlatButton"
 import { FlatCart } from "../shared/FlatCart"
 import { checkoutvalues } from "../shared/Types"
 import {CreditCardOutlined} from '@ant-design/icons'

@@ -8,6 +8,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../App";
 import { UseAuthContext } from "../Context/UseAuthContext";
 import FlatButton from "../shared/FlatButton";
+import { Loading } from "../shared/Loading";
 
 const { Title, Text, Link } = Typography;
 
@@ -28,7 +29,7 @@ const validationSchema = Yup.object({
 export default function SignUp() {
   const [error, setError] = useState(false);
   const navigate = useNavigate();
-  const { dispatch } = UseAuthContext();
+  const { dispatch, loading } = UseAuthContext();
 
   const handleSignUp = async ({ name, email, password }: any) => {
     try {
@@ -36,13 +37,16 @@ export default function SignUp() {
       const { user } = userCredential;
       await updateProfile(user, { displayName: name });
       dispatch({ type: "getUser", payload: user });
-      navigate("/nkelemoil");
+      navigate(-1);
+      return
     } catch (err) {
       console.error(err);
       setError(true);
     }
   };
-
+  if(loading){
+    return <Loading/>
+  }
   return (
     <Formik
       initialValues={{ name: "", email: "", password: "" }}
@@ -65,18 +69,19 @@ export default function SignUp() {
             padding: "30px",
           }}
         >
-          <div style={{ maxWidth: "500px", width: "100%", position: "relative" }}>
+          <div style={{ maxWidth: "500px", width: "100%"}}>
+            <div style={{ position: "relative", textAlign: "right" }}>
             <CloseOutlined
-              onClick={() => navigate("/nkelemoil")}
-              style={{
+            onClick={() => navigate("/nkelemoil")}
+            style={{
                 fontSize: "24px",
                 padding: "10px",
                 border: "1px solid black",
                 borderRadius: "5px",
-                position: "absolute",
-                right: 0,
-              }}
+                cursor: "pointer",
+            }}
             />
+            </div>
 
             <Title level={4} style={{  marginBottom: "20px" }}>
               Create an account to place your order
@@ -145,7 +150,7 @@ export default function SignUp() {
 
             <Text style={{ marginTop: "20px", display: "block", textAlign: "center" }}>
               Already have an account?{" "}
-              <Link onClick={() => navigate("/simplebankweb/user")}>Sign in here</Link>
+              <Link onClick={() => navigate("/nkelemoil/user")}>Sign in here</Link>
             </Text>
           </div>
         </div>

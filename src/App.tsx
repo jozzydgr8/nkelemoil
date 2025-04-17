@@ -17,6 +17,8 @@ import { Loading } from "./shared/Loading";
 import { UseAuthContext } from "./Context/UseAuthContext";
 import Session from "./Pages/Session";
 import SignUp from "./Pages/SignUp";
+import { ProtectedRoutes } from "./shared/ProtectedRoutes";
+import { GuestRoutes } from "./shared/GuestRoutes";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -111,11 +113,11 @@ if(loading ||userloading){
       <Route path=":id" element={<Idlayout/>} />
       <Route path='cart' element={<Outlet/>}>
       <Route index element={<Cart/>} />
-      <Route path="checkout" element={user?<CheckoutSteps/>:<Navigate to={'/nkelemoil/user'}/>}/>
+      <Route path="checkout" element={<ProtectedRoutes user={user}><CheckoutSteps/></ProtectedRoutes>}/>
       
       </Route>
-      <Route path='user' element={!user ? <Session/>: <Navigate to = '/nkelemoil'/> }/>
-    <Route path='signup' element ={!user ? <SignUp/>:<Navigate to = '/nkelemoil'/>} />
+      <Route path='user' element={<GuestRoutes user={user}><Session/></GuestRoutes>}/>
+    <Route path='signup' element ={<GuestRoutes user={user}><SignUp/></GuestRoutes>} />
       
     </Route>
   ))

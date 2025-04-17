@@ -8,6 +8,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import * as Yup from 'yup';
 import { auth } from "../App";
 import { UseAuthContext } from "../Context/UseAuthContext";
+import { Loading } from "../shared/Loading";
 
 const { Text, Title } = Typography;
 
@@ -31,22 +32,30 @@ export default function Session() {
   const navigate = useNavigate();
   const { dispatch } = UseAuthContext();
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const handleSignIn = async (values: formikType) => {
+    setLoading(true)
     try {
+      
       const userCredential = await signInWithEmailAndPassword(
         auth,
         values.email,
         values.password
       );
       dispatch({ type: "getUser", payload: userCredential.user });
-      navigate("/simplebankweb");
+      navigate(-1);
+   
+      return
     } catch (error) {
       console.error(error);
       setError(true);
+      setLoading(false)
+    
     }
+  
   };
-
+ 
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
@@ -132,7 +141,7 @@ export default function Session() {
                 />
               </Form.Item>
 
-              <FlatButton title="Submit" onClick={formik.handleSubmit} />
+              <FlatButton title="Submit" onClick={formik.handleSubmit} disable={loading} />
             </Form>
 
             <div style={{ marginTop: "20px", fontSize: "14px" }}>

@@ -44,7 +44,7 @@ export const Product = ({header}:props) => {
   const productChunks = chunkArray(palmOilProducts, 5);
 
   return (
-    <section>
+    <section id="product">
         <div>
         <h2 style={{textAlign:'center', margin:'10px 0'}}>{header}</h2>
         
