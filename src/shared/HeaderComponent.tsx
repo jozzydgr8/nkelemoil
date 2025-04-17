@@ -38,7 +38,7 @@ export const HeaderComponent = () => {
   const updateCartCount = () => {
     const items = JSON.parse(localStorage.getItem("myItems") || "[]");
     setCartCount(items.length);
-    dispatch({type:"getcart", payload:items})
+
   };
 
   useEffect(() => {

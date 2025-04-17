@@ -1,4 +1,4 @@
-import { Outlet, RouterProvider } from "react-router";
+import { Navigate, Outlet, RouterProvider } from "react-router";
 import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
 import HomePage from './Pages/HomePage'
 import Layout from "./Layout";
@@ -12,9 +12,11 @@ import { UseContextData } from "./Context/UseContextData";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { initializeApp } from "firebase/app";
-
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { Loading } from "./shared/Loading";
+import { UseAuthContext } from "./Context/UseAuthContext";
+import Session from "./Pages/Session";
+import SignUp from "./Pages/SignUp";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -28,13 +30,27 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+
+
 
 
 function App() {
+
+//  user use effect 
+
 const {dispatch,loading,cart} = UseContextData();
+const {user, dispatch:transmit, loading:userloading} = UseAuthContext();
+
+
+
+
+// useeffect ti handle cart
+
 useEffect(() => {
+  console.log(palmOilProducts)
+  dispatch({ type: 'setloading', payload: true });
   const updateCartFromStorage = () => {
-    dispatch({ type: 'setloading', payload: true });
 
     const items = JSON.parse(localStorage.getItem("myItems") || "[]");
 
@@ -51,6 +67,7 @@ useEffect(() => {
       });
 
     dispatch({ type: 'getcart', payload: data });
+    dispatch({type:'setloading', payload:false});
   };
 
   updateCartFromStorage(); // run on first load
@@ -63,9 +80,30 @@ useEffect(() => {
   };
 }, []);
 
+//use efffeevt for user
+  useEffect(()=>{
+    transmit({type:'loading', payload:true});
+    const unSubscribe = onAuthStateChanged(auth, user=>{
+      if(user){
+        transmit({type:'getUser', payload:user});
+        console.log('signed in', user);
+        transmit({type:'loading', payload:false});
+      }else{
+        transmit({type:'getUser', payload:null});
+        console.log('logged out')
+        transmit({type:'loading', payload:false});
+      }
+    });
+    return ()=>unSubscribe()
+  },[]);
+console.log("Current user in component:", user);
 
-if(loading){
-  return <>...loading</>
+
+
+
+
+if(loading ||userloading){
+  return <Loading/>
 }
   const router = createBrowserRouter(createRoutesFromElements(
     <Route path="/nkelemoil" element={<Layout/>}>
@@ -73,8 +111,11 @@ if(loading){
       <Route path=":id" element={<Idlayout/>} />
       <Route path='cart' element={<Outlet/>}>
       <Route index element={<Cart/>} />
-      <Route path="checkout" element={<CheckoutSteps/>}/>
+      <Route path="checkout" element={user?<CheckoutSteps/>:<Navigate to={'/nkelemoil/user'}/>}/>
+      
       </Route>
+      <Route path='user' element={!user ? <Session/>: <Navigate to = '/nkelemoil'/> }/>
+    <Route path='signup' element ={!user ? <SignUp/>:<Navigate to = '/nkelemoil'/>} />
       
     </Route>
   ))

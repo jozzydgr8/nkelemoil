@@ -1,31 +1,19 @@
 import { useNavigate } from "react-router-dom";
-import { UseContextData } from "../Context/UseContextData";
 import { palmOilProducts } from "../data";
 import FlatButton from "../shared/FlatButton";
 import { DeleteOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
+import { UseContextData } from "../Context/UseContextData";
 
 export function Cart() {
-  const { cart } = UseContextData();
+  const {cart} = UseContextData();
+  console.log("Cart items in map:", cart)
   const navigate = useNavigate();
 
   // Get the items directly from localStorage
   const cartItems = JSON.parse(localStorage.getItem("myItems") || "[]");
 
   // Merge quantity from localStorage into palmOilProducts
-  const data = palmOilProducts
-    .filter((product) =>
-      cartItems.some((item: { id: string }) => String(product.id) === item.id)
-    )
-    .map((product) => {
-      const matchedItem = cartItems.find(
-        (item: { id: string }) => String(product.id) === item.id
-      );
-      return {
-        ...product,
-        quantity: matchedItem?.quantity || 1,
-      };
-    });
 
   const styles = {
     container: {
@@ -47,13 +35,13 @@ export function Cart() {
 
   // Remove an item from localStorage and dispatch cartUpdated event
   const removeItem = (id: string) => {
-    const itemRemoved = cart?.find((item) => String(item.id) === id);
+    // const itemRemoved = cart?.find((item) => String(item.id) === id);
   
-    const updatedItems = cartItems.filter((item: { id: string }) => item.id !== id);
-    localStorage.setItem("myItems", JSON.stringify(updatedItems));
-    window.dispatchEvent(new Event("cartUpdated"));
+    // const updatedItems = cartItems.filter((item: { id: string }) => item.id !== id);
+    // localStorage.setItem("myItems", JSON.stringify(updatedItems));
+    // window.dispatchEvent(new Event("cartUpdated"));
   
-    toast.info(`${itemRemoved?.title} has been removed from your cart.`);
+    // toast.info(`${itemRemoved?.title} has been removed from your cart.`);
   };
   
 
@@ -69,7 +57,9 @@ export function Cart() {
 
         {cart && cart.length > 0 ? (
           <div>
-            {cart.map((item) => (
+            {
+
+            cart.map((item) => (
               <div style={styles.container} key={item.id}>
                 <div style={styles.content}>
                   <div>

@@ -9,7 +9,7 @@ type State = {
   loading: boolean;
 };
 
-type CartAction = {
+type marketAction = {
   type: "getcart";
   payload: CartItem[] | null;
 };
@@ -19,7 +19,7 @@ type LoadAction = {
   payload: boolean;
 };
 
-type Action = CartAction | LoadAction;
+type Action = marketAction | LoadAction;
 
 type ContextProps = State & {
   dispatch: React.Dispatch<Action>;
@@ -45,7 +45,7 @@ export const Context = createContext<ContextProps>({
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "getcart":
-      return { ...state, cart: action.payload, loading: false };
+      return { ...state, cart: action.payload };
     case "setloading":
       return { ...state, loading: action.payload };
     default:
