@@ -19,16 +19,19 @@ import Session from "./Pages/Session";
 import SignUp from "./Pages/SignUp";
 import { ProtectedRoutes } from "./shared/ProtectedRoutes";
 import { GuestRoutes } from "./shared/GuestRoutes";
+import AdminLayout from "./Admin/AdminLayout";
+import { Admin } from "./Admin/Page.tsx/Admin";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDkadbzWyKrB81D8SEbFpxWP3r3bRbJsAA",
-  authDomain: "nkelemoil.firebaseapp.com",
-  projectId: "nkelemoil",
-  storageBucket: "nkelemoil.firebasestorage.app",
-  messagingSenderId: "284682857488",
-  appId: "1:284682857488:web:3126cd858f234493fcee95"
+  apiKey: "AIzaSyBCYEeE-N22ytQWInLLo9_w8jQPVSliKr0",
+  authDomain: "commercetemp-68d9d.firebaseapp.com",
+  projectId: "commercetemp-68d9d",
+  storageBucket: "commercetemp-68d9d.appspot.com",
+  messagingSenderId: "809173166381",
+  appId: "1:809173166381:web:ae520ef4ed6cc9701b8ba4"
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -102,12 +105,45 @@ console.log("Current user in component:", user);
 
 
 
+//useeffect to fetch orders
+useEffect(() => {
+  dispatch({ type: 'setloading', payload: true });
+  if(!user){
+    dispatch({ type: 'setloading', payload: false });
+    return
+  }
+  const unSubscribe = onSnapshot(donorRef, (snapshot) => {
+    const data: donorType[] = snapshot.docs.map((doc) => {
+      const docData = doc.data();
+      return {
+        id: doc.id,
+        name: docData.name,
+        amount: docData.amount,
+        method: docData.method,
+        status: docData.status,
+        date: docData.date,
+        message: docData.message,
+        email: docData.email,
+        currency:docData.currency
+      };
+    });
 
+    dispatch({ type: 'getDonors', payload: data });
+    console.log(data);
+    dispatch({ type: 'loading', payload: false });
+  }, (error) => {
+    console.error('Error fetching data:', error);
+    dispatch({ type: 'loading', payload: false });
+  });
+
+  return () => unSubscribe();
+}, [user]);
 
 if(loading ||userloading){
   return <Loading/>
 }
   const router = createBrowserRouter(createRoutesFromElements(
+    <>
     <Route path="/nkelemoil" element={<Layout/>}>
       <Route index element={<HomePage/>}/>
       <Route path=":id" element={<Idlayout/>} />
@@ -117,9 +153,16 @@ if(loading ||userloading){
       
       </Route>
       <Route path='user' element={<GuestRoutes user={user}><Session/></GuestRoutes>}/>
-    <Route path='signup' element ={<GuestRoutes user={user}><SignUp/></GuestRoutes>} />
+      <Route path='signup' element ={<GuestRoutes user={user}><SignUp/></GuestRoutes>} />
       
     </Route>
+
+    <Route path="/admin" element={<AdminLayout/>}>
+      <Route index element={<Admin/>}/>
+      <Route path="adminsession" element={<Session/>}/>
+      it
+    </Route>
+    </>
   ))
   return (
     <div className="App">

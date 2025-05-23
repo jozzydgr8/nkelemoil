@@ -82,6 +82,62 @@ section .container-fluid{
   }
 }
 
+/* admin css admin css */
+
+/* layoutgrid */
+.displaygrid {
+  display: grid;
+  margin: 0 auto;
+  grid-gap: 0px;
+  height: 100vh;
+  grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+  grid-auto-rows: minmax(10px, auto);
+  /* background-color: #fff; */
+   /* Auto rows with a minimum height of 100px */
+  
+  /* Define grid areas across rows */
+  grid-template-areas: 
+    "one second second second"
+    "one three three three"
+    "one three three three "
+    "one three three three "
+    "one three three three "
+    "one three three three "
+    "one three three three"
+    ;
+/* Empty cells represented by . */
+}
+@media (max-width:800px) {
+  .displaygrid{
+    grid-template-areas:
+    "second second second second"
+    "three three three three"
+    "three three three three "
+    "three three three three "
+    "three three three three "
+    "three three three three "
+    "three three three three" ;
+  }
+  .one {
+    display: none;
+  }
+}
+
+
+
+.one {
+  grid-area: one;
+
+}
+
+.second{
+  grid-area: second;
+}
+
+.three {
+  grid-area: three;
+  overflow-y: auto;
+}
 
 /* loading loader */
 .loader {

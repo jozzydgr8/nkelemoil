@@ -35,13 +35,13 @@ export function Cart() {
 
   // Remove an item from localStorage and dispatch cartUpdated event
   const removeItem = (id: string) => {
-    // const itemRemoved = cart?.find((item) => String(item.id) === id);
+    const itemRemoved = cart?.find((item) => String(item.id) === id);
   
-    // const updatedItems = cartItems.filter((item: { id: string }) => item.id !== id);
-    // localStorage.setItem("myItems", JSON.stringify(updatedItems));
-    // window.dispatchEvent(new Event("cartUpdated"));
+    const updatedItems = cartItems.filter((item: { id: string }) => item.id !== id);
+    localStorage.setItem("myItems", JSON.stringify(updatedItems));
+    window.dispatchEvent(new Event("cartUpdated"));
   
-    // toast.info(`${itemRemoved?.title} has been removed from your cart.`);
+    toast.info(`${itemRemoved?.title} has been removed from your cart.`);
   };
   
 
