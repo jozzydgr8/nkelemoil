@@ -6,7 +6,8 @@ export type checkoutvalues={
     address: string; 
     city: string; 
     state: string; 
-    deliveryNote: string;
+    deliveryNote?: string;
+   
     
 }
 
@@ -20,4 +21,4 @@ export type MenuItem = {
     icon: React.ReactNode
   };
 
-export type OrderItem = checkoutvalues & {cart:CartItem}
+export type OrderItem = checkoutvalues & {cart:CartItem, id:string,  status:string, totalPrice:string}

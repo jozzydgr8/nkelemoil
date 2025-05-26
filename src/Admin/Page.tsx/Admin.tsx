@@ -1,7 +1,9 @@
+import { Order } from "./component/Order"
+
 export const Admin = ()=>{
     return(
         <>
-        Admin
+        <Order/>
         </>
     )
 }

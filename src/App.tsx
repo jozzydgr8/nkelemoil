@@ -13,6 +13,7 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {collection, getFirestore, onSnapshot} from "firebase/firestore";
 import { Loading } from "./shared/Loading";
 import { UseAuthContext } from "./Context/UseAuthContext";
 import Session from "./Pages/Session";
@@ -21,6 +22,7 @@ import { ProtectedRoutes } from "./shared/ProtectedRoutes";
 import { GuestRoutes } from "./shared/GuestRoutes";
 import AdminLayout from "./Admin/AdminLayout";
 import { Admin } from "./Admin/Page.tsx/Admin";
+import { OrderItem } from "./shared/Types";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -36,6 +38,9 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+export const db = getFirestore();
+export const productRef = collection(db, 'product');
+export const orderRef = collection(db, 'order');
 
 
 
@@ -108,32 +113,34 @@ console.log("Current user in component:", user);
 //useeffect to fetch orders
 useEffect(() => {
   dispatch({ type: 'setloading', payload: true });
-  if(!user){
+  if(user?.uid !== process.env.REACT_APP_Admin){
     dispatch({ type: 'setloading', payload: false });
     return
   }
-  const unSubscribe = onSnapshot(donorRef, (snapshot) => {
-    const data: donorType[] = snapshot.docs.map((doc) => {
+  const unSubscribe = onSnapshot(orderRef, (snapshot) => {
+    const data: OrderItem[] = snapshot.docs.map((doc) => {
       const docData = doc.data();
       return {
         id: doc.id,
-        name: docData.name,
-        amount: docData.amount,
-        method: docData.method,
-        status: docData.status,
-        date: docData.date,
-        message: docData.message,
-        email: docData.email,
-        currency:docData.currency
+        name:docData.name,
+        address:docData.address,
+        cart:docData.cart,
+        city:docData.city,
+        country:docData.country,
+        email:docData.email,
+        phone:docData.phone,
+        status:docData.status,
+        totalPrice:docData.totalPrice,
+        state:docData.state
       };
     });
 
-    dispatch({ type: 'getDonors', payload: data });
-    console.log(data);
-    dispatch({ type: 'loading', payload: false });
+    dispatch({ type: 'getOrder', payload: data });
+    console.log(data, 'orders');
+    dispatch({ type: 'setloading', payload: false });
   }, (error) => {
     console.error('Error fetching data:', error);
-    dispatch({ type: 'loading', payload: false });
+    dispatch({ type: 'setloading', payload: false });
   });
 
   return () => unSubscribe();

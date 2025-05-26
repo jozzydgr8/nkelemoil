@@ -2,11 +2,12 @@
 type typebutton ={
     title:string,
     onClick:()=>void,
-    disable?:boolean
+    disable?:boolean,
+    className?:string,
 }
-function FlatButton({title, onClick, disable}:typebutton) {
+function FlatButton({title, onClick, disable, className}:typebutton) {
   return (
-    <button className="btn btn-success" onClick={onClick} disabled={disable}>{title}</button>
+    <button className={`btn ${className}`} onClick={onClick} disabled={disable}>{title}</button>
   )
 }
 
