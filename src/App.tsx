@@ -22,7 +22,7 @@ import { ProtectedRoutes } from "./shared/ProtectedRoutes";
 import { GuestRoutes } from "./shared/GuestRoutes";
 import AdminLayout from "./Admin/AdminLayout";
 import { Admin } from "./Admin/Page.tsx/Admin";
-import { OrderItem } from "./shared/Types";
+import { OrderItem, productType } from "./shared/Types";
 import { getStorage } from "firebase/storage";
 import { AdminUpload } from "./Admin/Page.tsx/AdminUpload";
 
@@ -52,7 +52,7 @@ function App() {
 
 //  user use effect 
 
-const {dispatch,loading,cart} = UseContextData();
+const {dispatch,loading,product} = UseContextData();
 const {user, dispatch:transmit, loading:userloading} = UseAuthContext();
 
 
@@ -61,13 +61,12 @@ const {user, dispatch:transmit, loading:userloading} = UseAuthContext();
 // useeffect ti handle cart
 
 useEffect(() => {
-  console.log(palmOilProducts)
   dispatch({ type: 'setloading', payload: true });
   const updateCartFromStorage = () => {
 
     const items = JSON.parse(localStorage.getItem("myItems") || "[]");
 
-    const data = palmOilProducts
+    const data = product && product
       .filter((product) =>
         items.some((i: any) => String(product.id) === i.id)
       )
@@ -150,7 +149,31 @@ useEffect(() => {
 }, [user]);
 
 //use effect to get products
+useEffect(() => {
+  console.log('products')
+  dispatch({ type: 'setloading', payload: true });
+  const unSubscribe = onSnapshot(productRef, (snapshot) => {
+    const data: productType[] = snapshot.docs.map((doc) => {
+      const docData = doc.data();
+      return {
+        id: doc.id,
+        measurement: docData.measurement,
+        title: docData.title,
+        price: docData.price,
+        fileUrls: docData.files
+      };
+    });
 
+    dispatch({ type: 'getProducts', payload: data });
+    console.log(data, 'products');
+    dispatch({ type: 'setloading', payload: false });
+  }, (error) => {
+    console.error('Error fetching data:', error);
+    dispatch({ type: 'setloading', payload: false });
+  });
+
+  return () => unSubscribe();
+}, []);
 if(loading ||userloading){
   return <Loading/>
 }
