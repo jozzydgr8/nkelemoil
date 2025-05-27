@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from "react";
-import { CartItem, OrderItem } from "../shared/Types";
+import { CartItem, OrderItem, productType } from "../shared/Types";
 
 // Types
 
@@ -8,6 +8,7 @@ type State = {
   cart: CartItem[] | null;
   loading: boolean;
   order:OrderItem[] | null;
+  product:productType[] | null;
 };
 
 type marketAction = {
@@ -24,8 +25,11 @@ type orderAction = {
   type:'getOrder',
   payload: OrderItem[] | null
 }
-
-type Action = marketAction | LoadAction | orderAction;
+type productAction = {
+  type:'getProducts',
+  payload: productType[] | null
+}
+type Action = marketAction | LoadAction | orderAction | productAction;
 
 type ContextProps = State & {
   dispatch: React.Dispatch<Action>;
@@ -39,7 +43,8 @@ type ComponentProps = {
 const initialState: State = {
   cart: null,
   loading: false,
-  order:null
+  order:null,
+  product: null
 };
 
 // Create Context with default value
@@ -56,7 +61,9 @@ const reducer = (state: State, action: Action): State => {
     case "setloading":
       return { ...state, loading: action.payload };
     case "getOrder":
-      return {...state, order: action.payload}
+      return {...state, order: action.payload};
+    case "getProducts":
+      return {...state, product: action.payload}
     default:
       return state;
   }

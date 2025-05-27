@@ -23,6 +23,8 @@ import { GuestRoutes } from "./shared/GuestRoutes";
 import AdminLayout from "./Admin/AdminLayout";
 import { Admin } from "./Admin/Page.tsx/Admin";
 import { OrderItem } from "./shared/Types";
+import { getStorage } from "firebase/storage";
+import { AdminUpload } from "./Admin/Page.tsx/AdminUpload";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -41,6 +43,7 @@ export const auth = getAuth(app);
 export const db = getFirestore();
 export const productRef = collection(db, 'product');
 export const orderRef = collection(db, 'order');
+export const storage = getStorage(app);
 
 
 
@@ -146,6 +149,8 @@ useEffect(() => {
   return () => unSubscribe();
 }, [user]);
 
+//use effect to get products
+
 if(loading ||userloading){
   return <Loading/>
 }
@@ -167,7 +172,7 @@ if(loading ||userloading){
     <Route path="/admin" element={<AdminLayout/>}>
       <Route index element={<Admin/>}/>
       <Route path="adminsession" element={<Session/>}/>
-      it
+      <Route path="adminUpload" element={<AdminUpload/>} />
     </Route>
     </>
   ))

@@ -10,7 +10,16 @@ export type checkoutvalues={
    
     
 }
-
+ export type productType = {
+    id: string,
+    measurement: string,
+    title: string,
+    price: number,
+    files:{
+        imagePath:string;
+        url:string;
+    }[]
+ }
 export type CartItem = {
     quantity: any; id: number; title: string; image?: string; price:number;
 };
