@@ -1,18 +1,17 @@
 {
   "files": {
     "main.css": "/nkelemoil/static/css/main.d34f68df.css",
-    "main.js": "/nkelemoil/static/js/main.f9501da2.js",
+    "main.js": "/nkelemoil/static/js/main.3f10d526.js",
     "static/js/453.cd0606b2.chunk.js": "/nkelemoil/static/js/453.cd0606b2.chunk.js",
     "static/media/darkpalmkernel_background.jpg": "/nkelemoil/static/media/darkpalmkernel_background.43d7dc8d0b7f26c03c8a.jpg",
     "static/media/palmkernel_background.jpg": "/nkelemoil/static/media/palmkernel_background.9d65df8470263fc2886f.jpg",
-    "static/media/fiveliter_palmoil.jpeg": "/nkelemoil/static/media/fiveliter_palmoil.0417f9885405a430c261.jpeg",
     "index.html": "/nkelemoil/index.html",
     "main.d34f68df.css.map": "/nkelemoil/static/css/main.d34f68df.css.map",
-    "main.f9501da2.js.map": "/nkelemoil/static/js/main.f9501da2.js.map",
+    "main.3f10d526.js.map": "/nkelemoil/static/js/main.3f10d526.js.map",
     "453.cd0606b2.chunk.js.map": "/nkelemoil/static/js/453.cd0606b2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d34f68df.css",
-    "static/js/main.f9501da2.js"
+    "static/js/main.3f10d526.js"
   ]
 }
