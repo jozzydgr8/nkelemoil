@@ -1,16 +1,17 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { palmOilProducts } from "../data";
 import demoImage from '../assets/fiveliter_palmoil.jpeg';
 import FlatButton from "../shared/FlatButton";
 import { Product } from "./Component/Home/Product";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { UseContextData } from "../Context/UseContextData";
 
 export function Idlayout() {
+  const {product} = UseContextData();
   const { id } = useParams();
   const navigate = useNavigate();
   const [number, setNumber] = useState(1);
-  const data = palmOilProducts.find((item) => item.id.toString() === id);
+  const data = product && product.find((item) => item.id && item.id.toString() === id);
 
   useEffect(() => {
     if (!data) {
@@ -20,7 +21,6 @@ export function Idlayout() {
 
   const styles = {
     backgroundimage: {
-      backgroundImage: `url(${demoImage})`,
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center center',
@@ -80,13 +80,19 @@ export function Idlayout() {
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-6">
-            <div style={styles.backgroundimage}></div>
+            <div
+              style={{
+                ...styles.backgroundimage,
+                backgroundImage: `url(${data.fileUrls && data.fileUrls[0].url})`,
+              }}
+            ></div>
+
           </div>
 
           <div className="col-md-6">
             <div>
               <h3 style={styles.title}>{data.title}</h3>
-              <div><span style={styles.placeholder}>Measurement:</span> {data.quantity}</div>
+              <div><span style={styles.placeholder}>Measurement:</span> {data.measurement}</div>
 
               <div style={styles.container}>
                 <div style={styles.number}>{number}</div>
@@ -100,7 +106,7 @@ export function Idlayout() {
               <h3 style={styles.title}>#{data.price}</h3>
 
               <div style={styles.buttoncontainer}>
-                <FlatButton title="ADD TO CART" onClick={addToStorage} />
+                <FlatButton title="ADD TO CART" className="btn-success" onClick={addToStorage} />
               </div>
             </div>
           </div>
@@ -108,7 +114,7 @@ export function Idlayout() {
 
         <div style={styles.information}>
           <h3>Additional Information</h3>
-          <h4 className="background" style={{ padding: '16px' }}>Measurement: {data.quantity}</h4>
+          <h4 className="background" style={{ padding: '16px' }}>Measurement: {data.measurement}</h4>
         </div>
 
         <Product header="Similar Product" />

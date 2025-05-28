@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { palmOilProducts } from "../data";
 import FlatButton from "../shared/FlatButton";
 import { DeleteOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
@@ -32,6 +31,7 @@ export function Cart() {
       cursor: "pointer",
     },
   };
+  console.log(cart, 'carts')
 
   // Remove an item from localStorage and dispatch cartUpdated event
   const removeItem = (id: string) => {
@@ -93,6 +93,7 @@ export function Cart() {
             <div>
               <FlatButton
                 title="Proceed to Checkout"
+                className="btn-success"
                 onClick={() => navigate("/nkelemoil/cart/checkout")}
               />
             </div>

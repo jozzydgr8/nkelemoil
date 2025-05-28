@@ -58,9 +58,13 @@ const {user, dispatch:transmit, loading:userloading} = UseAuthContext();
 
 
 
+
 // useeffect ti handle cart
 
 useEffect(() => {
+  if(!product){
+    return
+  }
   dispatch({ type: 'setloading', payload: true });
   const updateCartFromStorage = () => {
 
@@ -90,7 +94,7 @@ useEffect(() => {
   return () => {
     window.removeEventListener("cartUpdated", updateCartFromStorage);
   };
-}, []);
+}, [product]);
 
 //use efffeevt for user
   useEffect(()=>{
@@ -160,7 +164,7 @@ useEffect(() => {
         measurement: docData.measurement,
         title: docData.title,
         price: docData.price,
-        fileUrls: docData.files
+        fileUrls: docData.fileUrls
       };
     });
 

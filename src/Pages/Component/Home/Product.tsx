@@ -1,7 +1,8 @@
-import { palmOilProducts } from "../../../data";
+
 import FlatButton from "../../../shared/FlatButton";
 import palmoil from '../../../assets/fiveliter_palmoil.jpeg'
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { UseContextData } from "../../../Context/UseContextData";
 
 type props={
   header:string
@@ -25,7 +26,6 @@ const chunkArray = <T,>(arr: T[], size: number): T[][] => {
     },
     productbackground:{
         height:'200px',
-        backgroundImage:`url(${palmoil})`,
         backgroundSize:'contain',
         backgroundPosition:'center center',
         backgroundRepeat:'no-repeat',
@@ -41,7 +41,8 @@ const chunkArray = <T,>(arr: T[], size: number): T[][] => {
   
 
 export const Product = ({header}:props) => {
-  const productChunks = chunkArray(palmOilProducts, 5);
+const {product} = UseContextData();
+  const productChunks = chunkArray(product || [], 5);
 
   return (
     <section id="product">
@@ -72,12 +73,13 @@ export const Product = ({header}:props) => {
               <div  className="product">
                 {chunk.map((data) => (
                   <Link to={`/nkelemoil/${data.id}`} style={styles.content} key={data.id} >
-                    <div style={styles.productbackground}>
+                    <div style={{...styles.productbackground,
+                       backgroundImage: `url(${data.fileUrls && data.fileUrls[0].url})`}}>
 
                     </div>
                     <div>
                       <p style={styles.title}>{data.title}</p>
-                      <p style={styles.text}>{data.quantity}</p>
+                      <p style={styles.text}>{data.measurement}L</p>
                       <p style={styles.title}>#{data.price}</p>
                       <FlatButton title="Buy Now" onClick={()=>console.log('buy')} className="btn-success"/>
                     </div>
