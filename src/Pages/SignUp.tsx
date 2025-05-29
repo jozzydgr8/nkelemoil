@@ -145,7 +145,7 @@ export default function SignUp() {
                 />
               </Form.Item>
 
-              <FlatButton title="Submit" onClick={formik.handleSubmit} />
+              <FlatButton title="Submit" onClick={formik.handleSubmit} className="btn-success" />
             </Form>
 
             <Text style={{ marginTop: "20px", display: "block", textAlign: "center" }}>

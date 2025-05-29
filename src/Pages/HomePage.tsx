@@ -3,6 +3,7 @@ import { Header } from "./Component/Home/Header"
 import { Highlight } from "./Component/Home/Highlight"
 import { Product } from "./Component/Home/Product"
 import { Testimonial } from "./Component/Home/Testimonial"
+import { Footer } from "../shared/Footer"
 
 function HomePage() {
   return (
@@ -15,6 +16,7 @@ function HomePage() {
         <Benefit/>
         <Testimonial/>
         <Highlight/>
+        <Footer/>
         
     </section>
   )

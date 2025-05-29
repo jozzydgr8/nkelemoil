@@ -31,3 +31,9 @@ export type MenuItem = {
   };
 
 export type OrderItem = checkoutvalues & {cart:CartItem, id:string,  status:string, totalPrice:string}
+
+export type userDataType ={
+    userName:string,
+    email:string,
+    userId:string
+}

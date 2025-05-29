@@ -18,11 +18,11 @@ import { Loading } from "./shared/Loading";
 import { UseAuthContext } from "./Context/UseAuthContext";
 import Session from "./Pages/Session";
 import SignUp from "./Pages/SignUp";
-import { ProtectedRoutes } from "./shared/ProtectedRoutes";
-import { GuestRoutes } from "./shared/GuestRoutes";
+import { ProtectedRoutes, AdminProtectedRoutes } from "./shared/ProtectedRoutes";
+import { GuestRoutes, AdminGuestRoutes } from "./shared/GuestRoutes";
 import AdminLayout from "./Admin/AdminLayout";
 import { Admin } from "./Admin/Page.tsx/Admin";
-import { OrderItem, productType } from "./shared/Types";
+import { OrderItem, productType, userDataType } from "./shared/Types";
 import { getStorage } from "firebase/storage";
 import { AdminUpload } from "./Admin/Page.tsx/AdminUpload";
 
@@ -43,6 +43,7 @@ export const auth = getAuth(app);
 export const db = getFirestore();
 export const productRef = collection(db, 'product');
 export const orderRef = collection(db, 'order');
+export const userRef = collection(db, 'user')
 export const storage = getStorage(app);
 
 
@@ -152,6 +153,35 @@ useEffect(() => {
   return () => unSubscribe();
 }, [user]);
 
+//useeffect to fetch users
+useEffect(() => {
+  dispatch({ type: 'setloading', payload: true });
+  if(!user){
+    dispatch({ type: 'setloading', payload: false });
+    return
+  }
+  const unSubscribe = onSnapshot(userRef, (snapshot) => {
+    const data: userDataType[] = snapshot.docs.map((doc) => {
+      const docData = doc.data();
+      return {
+        id: doc.id,
+        userName:docData.userName,
+        email:docData.email,
+        userId:docData.userId
+      };
+    });
+
+    dispatch({ type: 'getUserData', payload: data });
+    console.log(data, 'users');
+    dispatch({ type: 'setloading', payload: false });
+  }, (error) => {
+    console.error('Error fetching data:', error);
+    dispatch({ type: 'setloading', payload: false });
+  });
+
+  return () => unSubscribe();
+}, [user]);
+
 //use effect to get products
 useEffect(() => {
   console.log('products')
@@ -197,8 +227,8 @@ if(loading ||userloading){
     </Route>
 
     <Route path="/admin" element={<AdminLayout/>}>
-      <Route index element={<Admin/>}/>
-      <Route path="adminsession" element={<Session/>}/>
+      <Route index element={<AdminProtectedRoutes user={user}><Admin/></AdminProtectedRoutes>}/>
+      <Route path="adminsession" element={<AdminGuestRoutes user={user}><Session/></AdminGuestRoutes>}/>
       <Route path="adminUpload" element={<AdminUpload/>} />
     </Route>
     </>

@@ -6,6 +6,8 @@ import { getNames } from "country-list";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { Form, Input, Select } from "antd";
+import { UseContextData } from "../Context/UseContextData";
+import { UseAuthContext } from "../Context/UseAuthContext";
 
 type checkprops = {
   handleCheckOut: (values: checkoutvalues) => void;
@@ -28,6 +30,8 @@ const checkoutSchema = Yup.object().shape({
 });
 
 export default function Checkout({ handleCheckOut, checkoutdetails }: checkprops) {
+  const {user} = UseAuthContext();
+console.log(user?.email)
   return (
     <section>
       <div>
@@ -94,6 +98,7 @@ export default function Checkout({ handleCheckOut, checkoutdetails }: checkprops
                   value={formik.values.email}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
+                  
                 />
               </Form.Item>
 

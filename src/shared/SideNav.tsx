@@ -13,7 +13,7 @@ export const SideNav: React.FC = () => {
   // Define the menu items
   const items: MenuItem[] = [
     { label: 'Dashboard', key: '/admin' , icon :<HomeOutlined/>},
-    {label:'upload', key:'/admin/upload', icon: <UploadOutlined/>},
+    {label:'upload', key:'/admin/adminUpload', icon: <UploadOutlined/>},
     { label: 'SignOut', key: 'signOut', icon :<LogoutOutlined/> },
     { label: 'Help', key: 'help', icon :<QuestionCircleFilled/> },
     

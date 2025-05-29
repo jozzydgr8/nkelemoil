@@ -1,3 +1,5 @@
+import { addDoc } from "firebase/firestore"
+import { orderRef } from "../App"
 import { UseContextData } from "../Context/UseContextData"
 import { FlatCart } from "../shared/FlatCart"
 import { checkoutvalues } from "../shared/Types"
@@ -16,8 +18,19 @@ export const Payment = ({data}:props)=>{
     
     // function for handlesucces on payment
 
-    const handleSuccess = ()=>{
-        console.log('successs')
+    const handleSuccess = async ()=>{
+        console.log('successs');
+        const orderValues ={
+            cart:cart,
+            totalPrice:totalPrice,
+            data
+        }
+        try{
+            await addDoc(orderRef,orderValues);
+            console.log('success adding orders');
+        }catch(error){
+            console.error(error, 'error for order')
+        }
     }
 
     const styles = {

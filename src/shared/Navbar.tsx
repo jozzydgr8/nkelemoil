@@ -48,7 +48,7 @@ function Navbar() {
         </li>
         <li className="nav-item">
           <div >
-          {!user ? <FlatButton title="Sign in" onClick={()=>navigate('/nkelemoil/user')}/> : <FlatButton title="Log Out" onClick={handleLogout} className="btn-success"/>}
+          {!user ? <FlatButton title="Sign in" onClick={()=>navigate('/nkelemoil/user')} className="btn-success"/> : <FlatButton title="Log Out" onClick={handleLogout} className="btn-success"/>}
             
           </div>
         </li>

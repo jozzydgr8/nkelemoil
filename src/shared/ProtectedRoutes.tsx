@@ -9,3 +9,7 @@ type proptype={
 export const ProtectedRoutes = ({children, user}:proptype)=>{
     return user ? <>{children}</> :<Navigate to={'/nkelemoil/user'}/>
 }
+
+export const AdminProtectedRoutes = ({children,user}:proptype)=>{
+    return user?.uid === process.env.REACT_APP_Admin ? <>{children}</>:<Navigate to={'/admin/adminsession'}/>
+}

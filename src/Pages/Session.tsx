@@ -7,8 +7,7 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import * as Yup from 'yup';
 import { auth } from "../App";
-import { UseAuthContext } from "../Context/UseAuthContext";
-import { Loading } from "../shared/Loading";
+import { UseAuthContext } from "../Context/UseAuthContext"; 
 
 const { Text, Title } = Typography;
 
@@ -97,7 +96,7 @@ export default function Session() {
             </div>
 
             <Title level={3} style={{ marginBottom: 0 }}>
-              Login or Create Account
+              Login
             </Title>
             <Text type="secondary" style={{ fontSize: "14px" }}>
               to checkout and place your order
@@ -141,7 +140,7 @@ export default function Session() {
                 />
               </Form.Item>
 
-              <FlatButton title="Submit" onClick={formik.handleSubmit} disable={loading} />
+              <FlatButton title="Submit" onClick={formik.handleSubmit} disable={loading} className="btn-success" />
             </Form>
 
             <div style={{ marginTop: "20px", fontSize: "14px" }}>
